@@ -16,9 +16,11 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      gap: 20px;
     }
 
     .container {
@@ -109,17 +111,18 @@
     }
 
     .info-section {
-      margin-top: 30px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      border-left: 4px solid #667eea;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
     }
 
     .info-section h2 {
       color: #333;
-      font-size: 16px;
-      margin-bottom: 12px;
+      font-size: 18px;
+      margin-bottom: 15px;
       font-weight: 600;
     }
 
@@ -163,15 +166,15 @@
       <input type="number" id="rating5v5" placeholder="Enter rating" min="0" max="3000" value="1500">
       <div class="output" id="output5v5">0 points</div>
     </div>
+  </div>
 
-    <div class="info-section">
-      <h2>How Points Are Awarded</h2>
-      <p>Points are awarded at the start of each week, based on what you did in the previous week.</p>
-      <ul>
-        <li>You must play at least 10 games in a bracket to be eligible for points at the end of the week.</li>
-        <li>You receive your points from whichever eligible bracket would give you the highest number.</li>
-      </ul>
-    </div>
+  <div class="info-section">
+    <h2>How Points Are Awarded</h2>
+    <p>Points are awarded at the start of each week, based on what you did in the previous week.</p>
+    <ul>
+      <li>You must play at least 10 games in a bracket to be eligible for points at the end of the week.</li>
+      <li>You receive your points from whichever eligible bracket would give you the highest number.</li>
+    </ul>
   </div>
 
   <script>
