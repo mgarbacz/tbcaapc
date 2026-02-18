@@ -114,8 +114,23 @@
     </div>
 
     <script>
+        // TBC Arena Point Calculator Constants
+        // These values are part of Blizzard's arena point formula
+        const MAX_POINTS = 1651.94;  // Maximum arena points achievable
+        const BASE_POINTS = 475;      // Minimum arena points at 0 rating
+        const CURVE_FACTOR = 2500000; // Logistic curve steepness factor
+        const RATING_COEFFICIENT = -0.009; // Rating scaling coefficient
+        const ANNIVERSARY_MULTIPLIER = 1.5; // Anniversary event bonus multiplier
+        
+        // Bracket-specific multipliers
+        const MULTIPLIER_2V2 = 0.76; // 2v2 bracket receives 76% of base points
+        const MULTIPLIER_3V3 = 0.88; // 3v3 bracket receives 88% of base points
+        const MULTIPLIER_5V5 = 1.0;  // 5v5 bracket receives 100% of base points
+
         function calculatePoints(rating, multiplier = 1.0) {
-            const baseCalc = ((1651.94 - 475) / (1 + 2500000 * Math.exp(-0.009 * rating)) + 475) * 1.5;
+            const baseCalc = ((MAX_POINTS - BASE_POINTS) / 
+                             (1 + CURVE_FACTOR * Math.exp(RATING_COEFFICIENT * rating)) + 
+                             BASE_POINTS) * ANNIVERSARY_MULTIPLIER;
             return Math.round(multiplier * baseCalc);
         }
 
@@ -124,9 +139,9 @@
             const rating3v3 = parseFloat(document.getElementById('rating3v3').value) || 0;
             const rating5v5 = parseFloat(document.getElementById('rating5v5').value) || 0;
 
-            const points2v2 = calculatePoints(rating2v2, 0.76);
-            const points3v3 = calculatePoints(rating3v3, 0.88);
-            const points5v5 = calculatePoints(rating5v5, 1.0);
+            const points2v2 = calculatePoints(rating2v2, MULTIPLIER_2V2);
+            const points3v3 = calculatePoints(rating3v3, MULTIPLIER_3V3);
+            const points5v5 = calculatePoints(rating5v5, MULTIPLIER_5V5);
 
             document.getElementById('output2v2').textContent = `${points2v2} points`;
             document.getElementById('output3v3').textContent = `${points3v3} points`;
