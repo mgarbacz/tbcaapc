@@ -16,9 +16,11 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      gap: 20px;
     }
 
     .container {
@@ -74,6 +76,13 @@
       min-height: 44px;
       display: flex;
       align-items: center;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .rating-row .output.highest {
+      border-color: #667eea;
+      background: #f0f3ff;
     }
 
     @media (max-width: 600px) {
@@ -100,6 +109,40 @@
         margin-top: 4px;
       }
     }
+
+    .info-section {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .info-section h2 {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .info-section p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .info-section ul {
+      margin-left: 20px;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .info-section li {
+      margin-bottom: 4px;
+    }
   </style>
 </head>
 <body>
@@ -123,6 +166,15 @@
       <input type="number" id="rating5v5" placeholder="Enter rating" min="0" max="3000" value="1500">
       <div class="output" id="output5v5">0 points</div>
     </div>
+  </div>
+
+  <div class="info-section">
+    <h2>How Points Are Awarded</h2>
+    <p>Points are awarded at the start of each week, based on what you did in the previous week.</p>
+    <ul>
+      <li>You must play at least 10 games in a bracket to be eligible for points at the end of the week.</li>
+      <li>You receive your points from whichever eligible bracket would give you the highest number.</li>
+    </ul>
   </div>
 
   <script>
@@ -155,9 +207,30 @@
       const points3v3 = calculatePoints(rating3v3, MULTIPLIER_3V3);
       const points5v5 = calculatePoints(rating5v5, MULTIPLIER_5V5);
 
-      document.getElementById('output2v2').textContent = `${points2v2} points`;
-      document.getElementById('output3v3').textContent = `${points3v3} points`;
-      document.getElementById('output5v5').textContent = `${points5v5} points`;
+      const output2v2 = document.getElementById('output2v2');
+      const output3v3 = document.getElementById('output3v3');
+      const output5v5 = document.getElementById('output5v5');
+
+      output2v2.textContent = `${points2v2} points`;
+      output3v3.textContent = `${points3v3} points`;
+      output5v5.textContent = `${points5v5} points`;
+
+      // Remove all highlights
+      output2v2.classList.remove('highest');
+      output3v3.classList.remove('highest');
+      output5v5.classList.remove('highest');
+
+      // Find and highlight the highest
+      const maxPoints = Math.max(points2v2, points3v3, points5v5);
+      if (points2v2 === maxPoints) {
+        output2v2.classList.add('highest');
+      }
+      if (points3v3 === maxPoints) {
+        output3v3.classList.add('highest');
+      }
+      if (points5v5 === maxPoints) {
+        output5v5.classList.add('highest');
+      }
     }
 
     document.getElementById('rating2v2').addEventListener('input', updateCalculations);
