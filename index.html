@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Burning Crusade Anniversary Arena Point Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .rating-row label {
+            font-weight: 600;
+            color: #555;
+            min-width: 100px;
+        }
+
+        .rating-row input {
+            flex: 0 0 120px;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .rating-row input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .rating-row .output {
+            flex: 1;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #667eea;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .rating-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .rating-row label,
+            .rating-row input,
+            .rating-row .output {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Burning Crusade Anniversary Arena Point Calculator</h1>
+        
+        <div class="rating-row">
+            <label for="rating2v2">2v2 rating</label>
+            <input type="number" id="rating2v2" placeholder="Enter rating" min="0" max="3000" value="0">
+            <div class="output" id="output2v2">0 points</div>
+        </div>
+
+        <div class="rating-row">
+            <label for="rating3v3">3v3 rating</label>
+            <input type="number" id="rating3v3" placeholder="Enter rating" min="0" max="3000" value="0">
+            <div class="output" id="output3v3">0 points</div>
+        </div>
+
+        <div class="rating-row">
+            <label for="rating5v5">5v5 rating</label>
+            <input type="number" id="rating5v5" placeholder="Enter rating" min="0" max="3000" value="0">
+            <div class="output" id="output5v5">0 points</div>
+        </div>
+    </div>
+
+    <script>
+        function calculatePoints(rating, multiplier = 1.0) {
+            const baseCalc = ((1651.94 - 475) / (1 + 2500000 * Math.exp(-0.009 * rating)) + 475) * 1.5;
+            return Math.round(multiplier * baseCalc);
+        }
+
+        function updateCalculations() {
+            const rating2v2 = parseFloat(document.getElementById('rating2v2').value) || 0;
+            const rating3v3 = parseFloat(document.getElementById('rating3v3').value) || 0;
+            const rating5v5 = parseFloat(document.getElementById('rating5v5').value) || 0;
+
+            const points2v2 = calculatePoints(rating2v2, 0.76);
+            const points3v3 = calculatePoints(rating3v3, 0.88);
+            const points5v5 = calculatePoints(rating5v5, 1.0);
+
+            document.getElementById('output2v2').textContent = `${points2v2} points`;
+            document.getElementById('output3v3').textContent = `${points3v3} points`;
+            document.getElementById('output5v5').textContent = `${points5v5} points`;
+        }
+
+        document.getElementById('rating2v2').addEventListener('input', updateCalculations);
+        document.getElementById('rating3v3').addEventListener('input', updateCalculations);
+        document.getElementById('rating5v5').addEventListener('input', updateCalculations);
+
+        updateCalculations();
+    </script>
+</body>
+</html>
