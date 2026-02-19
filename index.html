@@ -23,7 +23,7 @@
       gap: 20px;
     }
 
-    .container {
+    .card {
       background: white;
       border-radius: 12px;
       padding: 40px;
@@ -110,43 +110,50 @@
       }
     }
 
-    .info-section {
-      background: white;
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-      width: 100%;
-    }
-
-    .info-section h2 {
+    .card h2 {
       color: #333;
       font-size: 18px;
       margin-bottom: 15px;
       font-weight: 600;
     }
 
-    .info-section p {
+    .card p {
       color: #555;
       line-height: 1.6;
       margin-bottom: 8px;
       font-size: 14px;
     }
 
-    .info-section ul {
+    .card ul {
       margin-left: 20px;
       color: #555;
       font-size: 14px;
       line-height: 1.8;
     }
 
-    .info-section li {
+    .card li {
       margin-bottom: 4px;
+    }
+
+    footer {
+      font-size: 0.8em;
+      color: #fff;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    footer a:hover {
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="card">
     <h1>TBC Anniversary Arena Point Calculator</h1>
     
     <div class="rating-row">
@@ -168,7 +175,7 @@
     </div>
   </div>
 
-  <div class="info-section">
+  <div class="card">
     <h2>How Points Are Awarded</h2>
     <p>Points are awarded at the start of each week, based on what you did in the previous week.</p>
     <ul>
@@ -176,6 +183,10 @@
       <li>You receive your points from whichever eligible bracket would give you the highest number.</li>
     </ul>
   </div>
+
+  <footer>
+    <p>Privacy-first stats by <a href="https://www.goatcounter.com" target="_blank" rel="noopener">GoatCounter</a>. No cookies used.</p>
+  </footer>
 
   <script>
     // TBC Arena Point Calculator Constants
@@ -239,5 +250,6 @@
 
     updateCalculations();
   </script>
+  <script data-goatcounter="https://mehowcodes.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
